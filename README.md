@@ -1,65 +1,245 @@
-**Microservices-based AQI Tracker and Health Advisory System**
+# 🌍 Microservices-Based AQI Tracker & Health Advisory System
 
-**Overview**
+A **Spring Boot microservices application** that tracks Air Quality Index (AQI) for a given location and provides **health advisories based on pollution levels**.
 
-This project is a microservices-based system that tracks air quality index (AQI) and provides health advisories based on AQI levels. It is built using Spring Boot and follows a microservices architecture.
+The system follows a **microservices architecture** using service discovery and API gateway patterns to ensure scalability, modularity, and easy service communication.
 
-**Architecture**
+---
 
-The system consists of the following components:
+# 🏗 System Architecture
 
-**Service Registry** (Eureka Server): Acts as the central registry for service discovery.
+The application is composed of multiple independent services that communicate through **Spring Cloud infrastructure**.
 
-**API Gateway**: Routes requests to different microservices.
+```
+Client
+│
+▼
+API Gateway
+│
+├── AQI Tracker Service
+│
+└── Health Advisory Service
+▲
+│
+Service Registry (Eureka)
+```
 
-**AQI Tracker Microservice:** Fetches air quality data and provides it to the API Gateway.
+---
 
-**Health Advisory Microservice:** Provides health recommendations based on AQI levels.
+# 🧩 Components
 
-**Technologies Used**
+## 1️⃣ Service Registry (Eureka Server)
 
-Java
+Acts as the **central service discovery mechanism**.
 
-Spring Boot
+Responsibilities:
 
-Spring Cloud (Eureka, OpenFeign, API Gateway)
+- Registers all microservices
+- Allows services to discover each other
+- Enables dynamic scaling
 
-RESTful APIs
+---
 
-**Setup and Installation**
+## 2️⃣ API Gateway
 
-Clone the repository:
+The **single entry point** for all client requests.
 
-*git clone https://github.com/your-username/your-repository.git*
+Responsibilities:
 
-Navigate to each service folder and build the project using Maven:
+- Routes requests to appropriate microservices
+- Simplifies client communication
+- Enables centralized request handling
 
-*mvn clean install*
+---
 
-Start the Eureka Server:
+## 3️⃣ AQI Tracker Microservice
 
-*cd service-registry*
-*mvn spring-boot:run*
+Responsible for retrieving **Air Quality Index data** for a given location.
 
-**Start the other microservices:**
+Responsibilities:
 
-*cd aqi-service*
-*mvn spring-boot:run*
+- Fetch AQI data
+- Provide air pollution information
+- Serve AQI data through REST APIs
 
-*cd health-advisory-service*
-*mvn spring-boot:run*
+---
 
-**Start the API Gateway:**
+## 4️⃣ Health Advisory Microservice
 
-*cd api-gateway*
-*mvn spring-boot:run*
+Provides **health recommendations** based on AQI levels.
 
-**API Endpoints**
+Responsibilities:
 
-AQI Service:
+- Analyze AQI values
+- Generate health advisories
+- Recommend precautions for different pollution levels
 
-**GET /aqi?city={city}&state={state}&country={country} - Get AQI data for a location**
+---
 
-Health Advisory Service:
+# 🛠 Tech Stack
 
-**GET /advisory?city={city}&state={state}&country={country} - Get health advisory based on AQI**
+- **Java**
+- **Spring Boot**
+- **Spring Cloud**
+- Eureka Server
+- OpenFeign
+- API Gateway
+- **REST APIs**
+- **Maven**
+
+---
+
+# 📂 Project Structure
+
+```
+aqi-microservices-system
+│
+├── service-registry
+│ └── Eureka Server
+│
+├── api-gateway
+│ └── API Gateway Service
+│
+├── aqi-service
+│ └── AQI Tracker Microservice
+│
+├── health-advisory-service
+│ └── Health Advisory Microservice
+│
+└── README.md
+```
+
+---
+
+# ⚙️ Setup and Installation
+
+## 1️⃣ Clone the Repository
+
+```
+git clone https://github.com/your-username/your-repository.git
+cd your-repository
+```
+
+---
+
+## 2️⃣ Build the Services
+
+Navigate to each service folder and build using Maven:
+
+```
+mvn clean install
+```
+
+---
+
+## 3️⃣ Start the Service Registry
+
+```
+cd service-registry
+mvn spring-boot:run
+```
+
+The Eureka dashboard will be available at:
+
+```
+http://localhost:8761
+```
+
+---
+
+## 4️⃣ Start the Microservices
+
+### Start AQI Service
+
+```
+cd aqi-service
+mvn spring-boot:run
+```
+
+### Start Health Advisory Service
+
+```
+cd health-advisory-service
+mvn spring-boot:run
+```
+
+---
+
+## 5️⃣ Start the API Gateway
+
+```
+cd api-gateway
+mvn spring-boot:run
+```
+
+All client requests should be sent through the **API Gateway**.
+
+---
+
+# 🔌 API Endpoints
+
+## AQI Service
+
+Get AQI data for a specific location.
+
+```
+GET /aqi?city={city}&state={state}&country={country}
+```
+
+Example:
+
+```
+GET /aqi?city=Delhi&state=Delhi&country=India
+```
+
+---
+
+## Health Advisory Service
+
+Get health recommendations based on AQI levels.
+
+```
+GET /advisory?city={city}&state={state}&country={country}
+```
+
+Example:
+
+```
+GET /advisory?city=Delhi&state=Delhi&country=India
+```
+
+---
+
+# 💡 Example Workflow
+
+1. Client sends a request to the **API Gateway**
+2. Gateway routes request to the **AQI Service**
+3. AQI Service retrieves air quality data
+4. Health Advisory Service analyzes AQI values
+5. System returns **health recommendations** to the client
+
+---
+
+# 🌱 Possible Future Enhancements
+
+- Add caching using Redis
+- Implement circuit breakers using Resilience4j
+- Add Docker containerization
+- Deploy on Kubernetes
+- Add frontend dashboard for AQI visualization
+
+---
+
+# 👩‍💻 Author
+
+**Neha Alex**
+
+Software Engineer | Full Stack Developer | AI Enthusiast
+
+---
+
+# ⭐ Motivation
+
+This project demonstrates **microservices architecture using Spring Boot and Spring Cloud**, focusing on service discovery, API gateway patterns, and modular service design.
+
+If you found this project useful, feel free to ⭐ the repository!
